@@ -153,6 +153,7 @@ class ScheduleRunCommand extends ThinkCommand
     {
         while (Carbon::now()->lte($this->startedAt->endOfMinute())) {
             if (!$event->shouldRepeatNow()) {
+                usleep(100000);
                 continue;
             }
             if ($event->runsInMaintenanceMode()) {
@@ -169,7 +170,6 @@ class ScheduleRunCommand extends ThinkCommand
             }
             $this->eventsRan = true;
         }
-        usleep(100000);
     }
 
     /**
